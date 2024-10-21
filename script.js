@@ -1,29 +1,32 @@
+// Form validation logic extracted to a function
+function validateForm(username, password) {
+    let isValid = true;
+
+    if (username.trim() === "") {
+        isValid = false;
+        console.log("Error: Username is required");
+    }
+
+    if (password.trim() === "") {
+        isValid = false;
+        console.log("Error: Password is required");
+    }
+
+    return isValid;
+}
+
+// Handling form submission
 document.getElementById("loginForm").addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const usernameInput = document.getElementById("username");
-    const passwordInput = document.getElementById("password");
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
     const loginResult = document.getElementById("loginResult");
 
-    // Reset error messages
-    document.getElementById("usernameError").style.display = "none";
-    document.getElementById("passwordError").style.display = "none";
+    // Call the validation function
+    const isValid = validateForm(username, password);
 
-    let isValid = true;
-
-    // Check if username is empty
-    if (usernameInput.value.trim() === "") {
-        document.getElementById("usernameError").style.display = "block";
-        isValid = false;
-    }
-
-    // Check if password is empty
-    if (passwordInput.value.trim() === "") {
-        document.getElementById("passwordError").style.display = "block";
-        isValid = false;
-    }
-
-    // Simulate a successful login if form is valid
+    // Update the UI based on the validation result
     if (isValid) {
         loginResult.textContent = "Login successful!";
         loginResult.style.color = "green";
